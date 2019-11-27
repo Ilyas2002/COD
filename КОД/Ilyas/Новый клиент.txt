@@ -1,0 +1,28 @@
+{
+            string cod_Client = null;
+            string FIO = null;
+            string POL = null;
+            int? Number = null;
+
+            try
+            {
+                cod_Client = Convert.ToString(textBox1.Text);
+                FIO = Convert.ToString(textBox2.Text);
+                POL = Convert.ToString(textBox3.Text);
+                Number = Convert.ToInt32(textBox4.Text);
+
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            string query = @"INSERT INTO Client(cod_Client, FIO, POL, Number) 
+values(" + $" '{cod_Client}','{FIO}','{POL}','{Number}'" + ")"
+;
+
+            int? result = DBConnectionService.SendCommandToSqlServer(query);
+            if (result != null && result > 0)
+            {
+                MessageBox.Show("Добавлено!", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
